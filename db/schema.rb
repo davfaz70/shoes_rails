@@ -14,14 +14,16 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "categories", id: :integer, default: -> { "nextval('category_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.integer "weight", null: false
     t.integer "parent_id"
+    t.index ["name"], name: "unique_name", unique: true
   end
 
   create_table "colors", id: :serial, force: :cascade do |t|
     t.string "color", limit: 255, null: false
+    t.index ["color"], name: "colors_color_key", unique: true
   end
 
   create_table "shoes", id: :serial, force: :cascade do |t|
@@ -32,17 +34,19 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "shoes_categories", id: :serial, force: :cascade do |t|
     t.integer "shoe_id", null: false
     t.integer "category_id", null: false
+    t.index ["shoe_id", "category_id"], name: "shoes_categories_shoe_id_category_id_key", unique: true
   end
 
-  create_table "shoes_colors_sizes", id: :integer, default: -> { "nextval('shoe_color_size_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "shoes_colors_sizes", id: :serial, force: :cascade do |t|
     t.integer "shoe_id", null: false
     t.integer "color_id", null: false
     t.integer "size_id", null: false
+    t.index ["shoe_id", "color_id", "size_id"], name: "shoes_colors_sizes_shoe_id_color_id_size_id_key", unique: true
   end
 
-  create_table "sizes", id: :integer, default: -> { "nextval('size_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "sizes", id: :serial, force: :cascade do |t|
     t.string "size", limit: 255, null: false
-    t.index ["size"], name: "size_size", unique: true
+    t.index ["size"], name: "sizes_size_key", unique: true
   end
 
   add_foreign_key "categories", "categories", column: "parent_id", name: "fk_category", on_delete: :nullify
