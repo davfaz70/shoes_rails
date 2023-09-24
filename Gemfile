@@ -37,8 +37,9 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 
 gem 'dotenv-rails', groups: [:development, :test]
-
 gem 'graphql'
+gem 'search_object_graphql'
+gem "schema_to_scaffold"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
