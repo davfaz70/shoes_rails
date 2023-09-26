@@ -40,6 +40,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'graphql'
 gem 'search_object_graphql'
 gem "schema_to_scaffold"
+gem "multi_json"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -55,5 +56,6 @@ end
 group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'rest-client'
 end
 
