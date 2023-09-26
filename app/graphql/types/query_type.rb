@@ -24,7 +24,10 @@ module Types
       Shoe.all
     end
     
-    
+    field :categories, [Types::CategoryType], null: false
+    def categories
+      Category.where(weight: 0)
+    end
 
   end
 end
