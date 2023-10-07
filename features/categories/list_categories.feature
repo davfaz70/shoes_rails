@@ -37,11 +37,11 @@ Feature: list categories
                 "name": "Casual",
                 "categories": [
                     {
-                        "name": "Alte",
+                        "name": "Basse",
                         "categories": []
                     },
                     {
-                        "name": "Basse",
+                        "name": "Alte",
                         "categories": []
                     }
                 ]

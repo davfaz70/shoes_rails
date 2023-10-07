@@ -43,29 +43,34 @@ Feature: filter shoes
         | 6  | 4       | 3           |
         When I POST graphql with this body: 
         """
-        {"query": "query {shoes (name: \"Sniker Basse\", material: \"Gomma\", color: \"BIANCO\", size: 40)  {id, name, material, color, size, categories {name categories {name}}}}"}
+        {"query": "query { shoes (name: \"Sniker Basse\" material: \"Gomma\", size: \"40\") { shoe { name material categories { name } } color { color } size { size } }}"}
         """
         Then I should receive a response with this data:
         """
         {
-            "data": {
-                "shoes": [
-                    {
-                        "id": "2",
-                        "name": "Sniker Basse",
-                        "material": "Gomma",
-                        "color": "BIANCO",
-                        "size": "40",
-                        "categories": [
-                            {
-                                "name": "Casual",
-                                "categories": [
-                                    "name": "Basse"
-                                ]
-                            }
-                        ]
-                    }
-                ]
+    "data": {
+        "shoes": [
+            {
+                "shoe": {
+                    "name": "Sniker Basse",
+                    "material": "Gomma",
+                    "categories": [
+                        {
+                            "name": "Casual"
+                        },
+                        {
+                            "name": "Basse"
+                        }
+                    ]
+                },
+                "color": {
+                    "color": "BIANCO"
+                },
+                "size": {
+                    "size": "40"
+                }
             }
-        } 
+        ]
+    }
+}
         """
