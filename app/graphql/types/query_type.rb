@@ -32,7 +32,16 @@ module Types
       @result
     end
     
-    field :categories, [Types::CategoryType], null: false
+    field :category, CategoryType, "Find shoes by category" do
+      argument :name, String
+    end
+    def category(name:)
+      @category = Category.find_by(name: name)
+      @category.shoes = @category.shoes.order(name: :asc)
+      @category
+    end
+    field :categories, [Types::CategoryType], null: false do
+    end
     def categories
       Category.where(weight: 0)
     end

@@ -221,7 +221,7 @@ Feature: filter shoes
         | 6  | 4       | 3           |
         When I POST graphql with this body: 
         """
-        {"query": "query { category (name: \"Casual\", orderBy: \"popularity\") {name shoes{name} categories {name shoes{name}} } }"}
+        {"query": "query { category (name: \"Casual\") {name shoes(orderBy: \"name\"){name} categories {name shoes(orderBy: \"name\"){name}} } }"}
         """
         Then I should receive a response with this data:
         """
@@ -229,14 +229,6 @@ Feature: filter shoes
     "data": {
         "category": {
             "name": "Casual",
-            "shoes": [
-                {
-                    "name": "Sniker Basse"
-                },
-                {
-                    "name": "Sniker Alte"
-                }
-            ],
             "categories": [
                 {
                     "name": "Basse",
@@ -245,6 +237,14 @@ Feature: filter shoes
                 {
                     "name": "Alte",
                     "shoes": []
+                }
+            ],
+            "shoes": [
+                {
+                    "name": "Sniker Alte"
+                },
+                {
+                    "name": "Sniker Basse"
                 }
             ]
         }
